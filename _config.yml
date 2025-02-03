@@ -2,9 +2,9 @@ title: "Almir Lima Jr."
 author: ""
 description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
 permalink: /:title/
-lang: "pt-br"
+lang: "en"
 excerpt_separator: "\n\n\n"
-date_format: "%B %d, %Y"
+date_format: "%d de %B de %Y"
 
 # Layout
 
