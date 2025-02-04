@@ -3,8 +3,8 @@ title: "Teste"
 layout: post
 ---
 
-# Meu Artigo 📄
+# Social Pressure 📄
 
-<iframe src="202008_English.pdf" width="100%" height="600px"></iframe>
+<iframe src="/202008_English.pdf" width="100%" height="600px"></iframe>
 
-[📥 Baixar o artigo (PDF)](202008_English.pdf)
+[📥 Baixar o artigo (PDF)](/202008_English.pdf)
