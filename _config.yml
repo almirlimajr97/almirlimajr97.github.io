@@ -23,7 +23,7 @@ external:                  # shows a footer with social links - for available ic
   - {title: LinkedIn, icon: linkedin, url: "https://www.linkedin.com/in/almirlimajr97/"}
   - {title: GitHub, icon: github, url: "https://github.com/almirlimajr97/"}
   - {title: BlueSky, icon: bluesky, url: "https://bsky.app/profile/almirlimajr97.bsky.social/"}
-  - {title: Lattes, icon: folder-open, url: "https://lattes.cnpq.br/8271261828366576/"}
+  - {title: Lattes, icon: graduation-cap, url: "https://lattes.cnpq.br/8271261828366576/"}
 
 comments:
 #  disqus_shortname: ""    # see https://disqus.com/
