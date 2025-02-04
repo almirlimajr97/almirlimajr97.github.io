@@ -4,7 +4,7 @@ description: "Almir Lima Jr."
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
-date_format: "%d de %B de %Y"
+date_format: "%B %d,%Y"
 
 # Layout
 
