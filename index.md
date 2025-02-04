@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Home"
+title: ""
 ---
 
 <div style="text-align: center;">
@@ -11,6 +11,7 @@ title: "Home"
 
 ### About me:
 
+- My name is Almir and I live in São Paulo, Brazil.
 - I am an economist by trade, having earned a Bachelor's degree from Universidade Federal do ABC (UFABC) in 2022.
 - Since September 2019, I have worked as a data analyst at Itaú Unibanco.
 - I am big into using data to help understand real-life problems. College and work got me hooked on data modelling, and now I am diving into Data Science.
