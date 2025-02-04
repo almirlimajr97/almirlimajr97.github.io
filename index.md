@@ -1,7 +1,13 @@
 ---
 layout: page
-title: ""
+title: "Home"
 ---
+
+<style>
+    h1 {
+        display: none;
+    }
+</style>
 
 <div style="text-align: center;">
     <img src="headshot.jpeg" alt="Headshot of Almir Lima Jr." width="350">
