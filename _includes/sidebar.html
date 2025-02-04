@@ -1,26 +1,80 @@
-<link rel="stylesheet" href="{{ "/assets/css/sidebar.css" | relative_url }}" media="screen and (min-width: 70em)">
+<link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}" media="screen and (min-width: 70em)">
 <aside style="display: none">
+  <div class="sidebar-title">
+    <span class="site-title">{{ site.title }}</span>
+  </div>
   <nav>
-  {%- for item in site.navigation -%}
-    {%- assign node = site.pages | where: "name", item.file | first -%}
-    {%- assign url = item.url | default: node.url -%}
-    {%- assign title = item.title | default: node.title -%}
-    {%- assign icon = item.icon | default: item.sidebaricon -%}
-    <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
-      <svg aria-hidden="true" class="icon"><use xlink:href="{{ "/assets/fontawesome/icons.svg" | relative_url }}#{{ icon }}"></use></svg>
-      <span aria-hidden="true">{{ title }}</span>
-    </a>
-  {%- endfor -%}
-  {%- for item in site.external -%}
-    {%- assign node = site.pages | where: "name", item.file | first -%}
-    {%- assign url = item.url | default: node.url -%}
-    {%- assign title = item.title | default: node.title -%}
-    {%- assign icon = item.icon | default: item.sidebaricon -%}
-    <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
-      <svg aria-hidden="true" class="icon"><use xlink:href="{{ "/assets/fontawesome/icons.svg" | relative_url }}#{{ icon }}"></use></svg>
-      <span aria-hidden="true">{{ title }}</span>
-    </a>
-  {%- endfor -%}
+    {%- for item in site.navigation -%}
+      {%- assign node = site.pages | where: "name", item.file | first -%}
+      {%- assign url = item.url | default: node.url -%}
+      {%- assign title = item.title | default: node.title -%}
+      {%- assign icon = item.icon | default: item.sidebaricon -%}
+      <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
+        <svg aria-hidden="true" class="icon"><use xlink:href="{{ '/assets/fontawesome/icons.svg' | relative_url }}#{{ icon }}"></use></svg>
+        <span aria-hidden="true">{{ title }}</span>
+      </a>
+    {%- endfor -%}
+    {%- for item in site.external -%}
+      {%- assign node = site.pages | where: "name", item.file | first -%}
+      {%- assign url = item.url | default: node.url -%}
+      {%- assign title = item.title | default: node.title -%}
+      {%- assign icon = item.icon | default: item.sidebaricon -%}
+      <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
+        <svg aria-hidden="true" class="icon"><use xlink:href="{{ '/assets/fontawesome/icons.svg' | relative_url }}#{{ icon }}"></use></svg>
+        <span aria-hidden="true">{{ title }}</span>
+      </a>
+    {%- endfor -%}
   </nav>
   <div class="description">{{ site.description }}</div>
 </aside>
+
+<style>
+  /* Estilos para o título da barra lateral */
+  .sidebar-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    padding: 10px;
+    text-align: center; /* Centraliza o texto */
+    background-color: #f8f9fa; /* Cor de fundo do título */
+    border-bottom: 1px solid #ddd; /* Borda inferior */
+  }
+  .site-title {
+    color: #333; /* Cor do texto */
+  }
+  /* Estilos para a barra lateral */
+  aside {
+    display: block !important; /* Garante que a barra lateral seja exibida */
+    width: 250px; /* Largura da barra lateral */
+    height: 100vh; /* Altura total da tela */
+    position: fixed; /* Fixa a barra lateral */
+    top: 0;
+    left: 0;
+    background-color: #ffffff; /* Cor de fundo da barra lateral */
+    border-right: 1px solid #ddd; /* Borda à direita */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra à direita */
+  }
+  /* Estilos para os links do menu */
+  nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #007bff; /* Cor dos links */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin-bottom: 5px; /* Espaçamento entre os links */
+  }
+  nav a:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+  }
+  nav a.selected {
+    font-weight: bold; /* Destaque para o link selecionado */
+    background-color: #e9ecef; /* Cor de fundo do link selecionado */
+  }
+  /* Estilos para a descrição */
+  .description {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666; /* Cor do texto da descrição */
+  }
+</style>
