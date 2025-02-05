@@ -1,85 +1,26 @@
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
-<head>
-    <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
-    <meta charset="{{ site.encoding }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="{{ page.author | default: site.author | escape }}">
-    <meta name="generator" content="Jekyll v{{ jekyll.version }}">
-    <link rel="canonical" href="{{ page.url | absolute_url }}">
-    {% if site.show_frame %}
-    <link rel="stylesheet" href="{{ '/assets/css/frame.css' | relative_url }}">
-    {% else %}
-    <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
-    {% endif %}
-    {% if site.plugins contains 'jekyll-feed' %}<link rel="alternate" href="{{ site.feed.path | default: '/feed.xml' | relative_url }}" type="application/atom+xml" title="{{ site.title }}">{% endif %}
-    <style>
-        /* Estilos para o cabeçalho fixo */
-        header {
-            position: sticky;
-            top: 0;
-            background-color: #ffffff; /* Cor de fundo do cabeçalho */
-            border-bottom: 1px solid #ddd; /* Borda inferior */
-            z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-            padding: 10px 20px; /* Espaçamento interno */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra inferior */
-        }
-        .site-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 0;
-            color: #333; /* Cor do texto */
-        }
-        .menu {
-            display: flex;
-            gap: 15px; /* Espaçamento entre os links do menu */
-        }
-        .menu a {
-            text-decoration: none;
-            color: #007bff !important; /* Cor dos links (sobrescreve outros estilos) */
-        }
-        .menu a:hover {
-            text-decoration: underline;
-        }
-        /* Ajuste para o conteúdo quando a barra lateral está ativa */
-        {% if site.show_sidebar %}
-        body {
-            margin-left: 270px; /* Espaço para a barra lateral */
-        }
-        {% endif %}
-        /* Ajuste para o conteúdo quando a barra lateral está desativada */
-        {% unless site.show_sidebar %}
-        body {
-            margin: 0;
-            padding-top: 60px; /* Espaço para o cabeçalho fixo */
-        }
-        {% endunless %}
-    </style>
-</head>
-<body>
-    {% if site.show_sidebar or site.sidebar %}{% include sidebar.html %}{% endif %}
-
-    {% unless site.show_sidebar %}
-    <header>
-        <span class="site-title">{{ site.title }}</span>
-        <nav class="menu">
-            {% for page in site.navigation %}
-                <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
-            {% endfor %}
-        </nav>
-    </header>
-    {% endunless %}
-
-    {{ content }}
-
-    {% if site.external %}
-    <footer>
-        <div>{{ site.description | default: site.title }}</div>
-        {% include menu.html menu=site.external %}
-    </footer>
-    {% endif %}
-</body>
-</html>
+<link rel="stylesheet" href="{{ "/assets/css/sidebar.css" | relative_url }}" media="screen and (min-width: 70em)">
+<aside style="display: none">
+  <nav>
+  {%- for item in site.navigation -%}
+    {%- assign node = site.pages | where: "name", item.file | first -%}
+    {%- assign url = item.url | default: node.url -%}
+    {%- assign title = item.title | default: node.title -%}
+    {%- assign icon = item.icon | default: item.sidebaricon -%}
+    <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
+      <svg aria-hidden="true" class="icon"><use xlink:href="{{ "/assets/fontawesome/icons.svg" | relative_url }}#{{ icon }}"></use></svg>
+      <span aria-hidden="true">{{ title }}</span>
+    </a>
+  {%- endfor -%}
+  {%- for item in site.external -%}
+    {%- assign node = site.pages | where: "name", item.file | first -%}
+    {%- assign url = item.url | default: node.url -%}
+    {%- assign title = item.title | default: node.title -%}
+    {%- assign icon = item.icon | default: item.sidebaricon -%}
+    <a aria-label="{{ title }}" href="{{ url | relative_url }}" {% if url == page.url %}class="selected"{% endif %}>
+      <svg aria-hidden="true" class="icon"><use xlink:href="{{ "/assets/fontawesome/icons.svg" | relative_url }}#{{ icon }}"></use></svg>
+      <span aria-hidden="true">{{ title }}</span>
+    </a>
+  {%- endfor -%}
+  </nav>
+  <div class="description">{{ site.description }}</div>
+</aside>
