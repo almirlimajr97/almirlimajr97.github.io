@@ -21,6 +21,6 @@ title: "Home"
 
 - I live in São Paulo, Brazil.
 - I am an economist by trade, having earned a Bachelor's degree from Universidade Federal do ABC (UFABC) in 2022.
-- Since September 2019, I have worked at Itaú Unibanco, mainly in data analysis for its Credit and Debt Collection branches
+- Since September 2019, I have worked at Itaú Unibanco, currently as a data scientist for its Credit branch
 - I am big into using data to help understand real-life problems. College and work got me hooked on data modelling, and now I am diving into Data Science.
 - I am a huge fan of sports, especially baseball (big Mets and Palmeiras fan here!).
