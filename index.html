@@ -1,10 +1,480 @@
----
-layout: page
-title: "About Me"
----
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Almir Lima Jr.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<div style="text-align: center;">
-    <img src="headshot.jpg" alt="Headshot of Almir Lima Jr." width="350">
-</div>
+    :root, [data-theme="light"] {
+      --bg:       #F8F9FA;
+      --bg-card:  #FFFFFF;
+      --text:     #1A1A2E;
+      --accent:   #4361EE;
+      --muted:    #6C757D;
+      --border:   #DEE2E6;
+      --shadow:   0 1px 4px rgba(0,0,0,0.06);
+    }
 
-Welcome to my personal website!
+    [data-theme="dark"] {
+      --bg:       #0F0F1A;
+      --bg-card:  #16162A;
+      --text:     #E8E9F0;
+      --accent:   #5B7BFF;
+      --muted:    #8B8FA8;
+      --border:   #2A2A42;
+      --shadow:   0 1px 6px rgba(0,0,0,0.3);
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      padding: 0 1.5rem;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed;
+      top: 1.4rem;
+      right: 1.4rem;
+      z-index: 100;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      color: var(--muted);
+      transition: background 0.3s, border-color 0.3s, color 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .theme-toggle:hover { color: var(--text); }
+    .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
+
+    /* ── Nav ── */
+    .site-nav {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.6rem 0 0;
+      display: flex;
+      gap: 1.6rem;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      margin-right: auto;
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active { color: var(--accent); }
+
+    /* ── Page ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+      padding: 5rem 0 6rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 3.6rem;
+    }
+
+    .hero-text { opacity: 0; animation: fadeUp 0.8s 0.1s ease forwards; }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.78;
+      max-width: 460px;
+    }
+
+    /* ── Photo ── */
+    .hero-photo-wrap {
+      opacity: 0;
+      animation: fadeUp 0.8s 0.25s ease forwards;
+      flex-shrink: 0;
+    }
+
+    .hero-photo {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      display: block;
+      transition: border-color 0.3s;
+    }
+
+    /* Placeholder quando não há foto */
+    .hero-photo-placeholder {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--border);
+      transition: border-color 0.3s;
+    }
+
+    /* ── Links ── */
+    .hero-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1.6rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.35s ease forwards;
+    }
+
+    .hero-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .hero-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.6rem 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── About bullets ── */
+    .about-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .about-item .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.55rem;
+      opacity: 0.6;
+    }
+
+    .about-item strong { color: var(--text); font-weight: 500; }
+
+    /* ── Now/Currently card ── */
+    .now-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.3rem 1.5rem;
+      box-shadow: var(--shadow);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .now-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .now-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+      animation: pulse 2s infinite;
+    }
+
+    .now-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .now-items { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .now-item {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .now-item strong { color: var(--text); font-weight: 500; }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.6rem 0 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-note { font-size: 0.76rem; color: var(--muted); }
+
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.25); }
+      50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0.08); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; opacity: 1 !important; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo, .hero-photo-placeholder { width: 80px; height: 80px; }
+      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .site-nav { padding-top: 1rem; gap: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+    <span class="icon" id="themeIcon">☽</span>
+    <span id="themeLabel">Dark</span>
+  </button>
+
+  <!-- Nav -->
+  <nav class="site-nav" aria-label="Navegação principal">
+    <a class="nav-logo" href="index.html" aria-label="Home">
+      <svg width="48" height="20" viewBox="0 0 48 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="0,15 6,10 10,13 15,5 20,8 24,2 29,5 33,1 38,4 42,0 48,2"
+          stroke="var(--accent)" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+    </a>
+    <a class="nav-link active" href="index.html">Home</a>
+    <a class="nav-link" href="cv.html">CV</a>
+    <a class="nav-link" href="research.html">Research</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-text">
+        
+        <h1>Almir Lima Jr.</h1>
+        <p class="hero-bio">
+          I work at the intersection of economics and data science — using quantitative methods to turn data into decisions. Currently a data scientist at Itaú Unibanco's Credit Policy team and a postgraduate student at USP.
+        </p>
+
+      </div>
+
+      <div class="hero-photo-wrap">
+        <!-- Troque o src abaixo pelo caminho da sua foto, ex: "headshot.jpeg" -->
+        <img
+          class="hero-photo"
+          src="https://raw.githubusercontent.com/almirlimajr97/almirlimajr97.github.io/main/headshot.jpeg"
+          alt="Foto de Almir Lima Jr."
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hero-photo-placeholder" style="display:none;">👤</div>
+      </div>
+    </header>
+
+    <hr class="divider" />
+
+    <!-- About -->
+    <section style="margin-bottom: 2.4rem;">
+      <p class="section-label">About</p>
+      <ul class="about-list">
+        <li class="about-item">
+          <span class="dot"></span>
+          <span>Bachelor's degree in <strong>Economics</strong> from Universidade Federal do ABC (UFABC), 2022.</span>
+        </li>
+        <li class="about-item">
+          <span class="dot"></span>
+          <span>Postgraduate specialization in <strong>Data Sciences</strong> at Universidade de São Paulo (USP), in progress.</span>
+        </li>
+        <li class="about-item">
+          <span class="dot"></span>
+          <span>Data Scientist at <strong>Itaú Unibanco</strong>, Credit Policy team, since 2019.</span>
+        </li>
+        <li class="about-item">
+          <span class="dot"></span>
+          <span>Interests: causal inference, credit modeling, economic policy, and applied econometrics.</span>
+        </li>
+        <li class="about-item">
+          <span class="dot"></span>
+          <span>Based in <strong>São Paulo, Brazil</strong>. Big Mets and Palmeiras fan. ⚾🌴</span>
+        </li>
+      </ul>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Currently -->
+    <section>
+      <p class="section-label">Now</p>
+      <div class="now-card">
+        <div class="now-card-header">
+          <span class="now-dot"></span>
+          <span class="now-label">Currently</span>
+        </div>
+        <div class="now-items">
+          <p class="now-item">Working on <strong>credit risk models</strong> at Itaú Unibanco.</p>
+          <p class="now-item">Finishing my <strong>postgraduate degree</strong> in Data Sciences at USP.</p>
+          <p class="now-item">Exploring <strong>causal machine learning</strong> methods applied to credit policy.</p>
+          <!-- Adicione ou remova itens conforme sua situação atual -->
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page -->
+
+  <footer class="footer">
+    <nav class="footer-links">
+      <a href="mailto:almirlimajr97@icloud.com">Email</a>
+      <a href="https://www.linkedin.com/in/almirlimajr97/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/almirlimajr97/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://lattes.cnpq.br/8271261828366576/" target="_blank" rel="noopener">Lattes</a>
+      <a href="cv.html">CV</a>
+    </nav>
+  </footer>
+
+  <script>
+    const html       = document.documentElement;
+    const toggle     = document.getElementById('themeToggle');
+    const themeIcon  = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    const saved = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    function applyTheme(t) {
+      html.setAttribute('data-theme', t);
+      themeIcon.textContent  = t === 'dark' ? '☀︎' : '☽';
+      themeLabel.textContent = t === 'dark' ? 'Light' : 'Dark';
+      localStorage.setItem('theme', t);
+    }
+
+    applyTheme(saved);
+    toggle.addEventListener('click', () => {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+
+</body>
+</html>

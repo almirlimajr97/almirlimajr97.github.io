@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Almir Lima Jr.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root, [data-theme="light"] {
+      --bg:      #F8F9FA;
+      --bg-card: #FFFFFF;
+      --text:    #1A1A2E;
+      --accent:  #4361EE;
+      --muted:   #6C757D;
+      --border:  #DEE2E6;
+      --shadow:  0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    [data-theme="dark"] {
+      --bg:      #0F0F1A;
+      --bg-card: #16162A;
+      --text:    #E8E9F0;
+      --accent:  #5B7BFF;
+      --muted:   #8B8FA8;
+      --border:  #2A2A42;
+      --shadow:  0 1px 6px rgba(0,0,0,0.3);
+    }
+
+    html, body {
+      height: 100%;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed; top: 1.4rem; right: 1.4rem; z-index: 200;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 0.35rem 0.75rem;
+      cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.76rem; font-family: 'Inter', sans-serif; font-weight: 500;
+      color: var(--muted); transition: background 0.3s, border-color 0.3s, color 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .theme-toggle:hover { color: var(--text); }
+    .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
+
+    /* ── Nav ── */
+    .site-nav {
+      max-width: 680px; margin: 0 auto; width: 100%;
+      padding: 1.6rem 1.5rem 0;
+      display: flex; gap: 1.6rem; align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; margin-right: auto;
+    }
+
+    .nav-logo-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+
+    .nav-logo:hover .nav-logo-name { color: var(--accent); }
+
+    .nav-link {
+      font-size: 0.8rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--accent); }
+
+    /* ── PDF wrapper ── */
+    .pdf-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1.6rem 1.5rem 0;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .pdf-embed {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-card);
+      box-shadow: var(--shadow);
+      transition: border-color 0.3s;
+    }
+
+    /* fallback message inside <object> */
+    .pdf-fallback {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .pdf-fallback a {
+      color: var(--accent);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 680px; margin: 0 auto; width: 100%;
+      padding: 1.2rem 1.5rem 1.6rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1.2rem;
+      display: flex; justify-content: center;
+      align-items: center; flex-wrap: wrap; gap: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .footer-links { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; }
+
+    .footer-links a {
+      font-size: 0.78rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+
+    @media (max-width: 520px) {
+      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .pdf-wrap { padding: 1rem 0.75rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+    <span class="icon" id="themeIcon">☽</span>
+    <span id="themeLabel">Dark</span>
+  </button>
+
+  <nav class="site-nav" aria-label="Navegação principal">
+    <a class="nav-logo" href="index.html" aria-label="Home">
+      <svg width="48" height="20" viewBox="0 0 48 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="0,15 6,10 10,13 15,5 20,8 24,2 29,5 33,1 38,4 42,0 48,2"
+          stroke="var(--accent)" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+      <span class="nav-logo-name">Almir Lima Jr.</span>
+    </a>
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link active" href="cv.html">CV</a>
+    <a class="nav-link" href="research.html">Research</a>
+  </nav>
+
+  <div class="pdf-wrap">
+    <object
+      class="pdf-embed"
+      data="assets/files/CV_Almir_Goncalves_de_Lima_Junior-en-202601.pdf"
+      type="application/pdf"
+      style="height: calc(100vh - 120px);"
+    >
+      <div class="pdf-fallback">
+        <p>Your browser doesn't support embedded PDFs.</p>
+        <p style="margin-top:0.5rem;">
+          <a href="assets/files/CV_Almir_Goncalves_de_Lima_Junior-en-202601.pdf" target="_blank" rel="noopener">
+            Download CV ↗
+          </a>
+        </p>
+      </div>
+    </object>
+  </div>
+
+  <footer class="footer">
+    <nav class="footer-links">
+      <a href="mailto:almirlimajr97@icloud.com">Email</a>
+      <a href="https://www.linkedin.com/in/almirlimajr97/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/almirlimajr97/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://lattes.cnpq.br/8271261828366576/" target="_blank" rel="noopener">Lattes</a>
+    </nav>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    const saved = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    function applyTheme(t) {
+      html.setAttribute('data-theme', t);
+      themeIcon.textContent  = t === 'dark' ? '☀︎' : '☽';
+      themeLabel.textContent = t === 'dark' ? 'Light' : 'Dark';
+      localStorage.setItem('theme', t);
+    }
+
+    applyTheme(saved);
+    toggle.addEventListener('click', () => {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+
+</body>
+</html>
