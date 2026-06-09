@@ -70,14 +70,10 @@
       font-size: 0.74rem; font-family: 'Inter', sans-serif; font-weight: 500;
       color: var(--muted); transition: background 0.3s, border-color 0.3s, color 0.2s;
       box-shadow: var(--shadow);
-      /* desktop: fixed */
-      position: fixed; top: 1.2rem; right: 1.2rem; z-index: 100;
     }
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.85rem; line-height: 1; }
-    /* mobile: static inside nav, no overlap */
     @media (max-width: 560px) {
-      .theme-toggle { position: static; box-shadow: none; margin-left: auto; }
       .site-nav { padding: 1rem 0 0; gap: 1rem; }
     }
     .page { max-width: 680px; margin: 0 auto; width: 100%; flex: 1; padding: 3rem 0 5rem; }
