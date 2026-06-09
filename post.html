@@ -350,7 +350,7 @@
 
     /* ── Mobile ── */
     @media (max-width: 520px) {
-      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .theme-toggle { top: 0.8rem; right: 0.8rem; max-width: calc(100% - 1rem); }
       .post-body pre { padding: 0.9rem 1rem; }
       .post-body table { font-size: 0.8rem; }
     }
@@ -363,11 +363,6 @@
 <body>
 
   <!-- ── Theme toggle ── -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-    <span class="icon" id="themeIcon">☽</span>
-    <span id="themeLabel">Dark</span>
-  </button>
-
   <div class="page">
 
     <!-- ← Voltar -->
@@ -516,7 +511,11 @@ print(model.summary())</code></pre>
         <a href="https://www.linkedin.com/in/almirlimajr97/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/almirlimajr97/" target="_blank" rel="noopener">GitHub</a>
         <a href="https://lattes.cnpq.br/8271261828366576/" target="_blank" rel="noopener">Lattes</a>
-      </nav>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </nav>
     </footer>
 
   </div><!-- /page -->

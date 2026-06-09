@@ -147,17 +147,12 @@
     }
 
     @media (max-width: 520px) {
-      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .theme-toggle { top: 0.8rem; right: 0.8rem; max-width: calc(100% - 1rem); }
       .pdf-wrap { padding: 1rem 0.75rem 0; }
     }
   </style>
 </head>
 <body>
-
-  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-    <span class="icon" id="themeIcon">☽</span>
-    <span id="themeLabel">Dark</span>
-  </button>
 
   <nav class="site-nav" aria-label="Navegação principal">
     <a class="nav-logo" href="index.html" aria-label="Home">
@@ -171,6 +166,14 @@
     <a class="nav-link" href="index.html">Home</a>
     <a class="nav-link active" href="cv.html">CV</a>
     <a class="nav-link" href="research.html">Research</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
   </nav>
 
   <div class="pdf-wrap">

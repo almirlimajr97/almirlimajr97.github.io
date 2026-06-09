@@ -55,6 +55,14 @@
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
 
+    @media (max-width: 560px) {
+      .theme-toggle {
+        position: static;
+        margin-left: auto;
+        box-shadow: none;
+      }
+    }
+
     /* ── Nav ── */
     .site-nav {
       max-width: 680px; margin: 0 auto; width: 100%;
@@ -191,20 +199,15 @@
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
     @media (max-width: 520px) {
-      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .theme-toggle { top: 0.8rem; right: 0.8rem; max-width: calc(100% - 1rem); }
       .pdf-wrap iframe { height: 400px; }
     }
   </style>
 </head>
 <body>
 
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <span class="icon" id="themeIcon">☽</span>
-    <span id="themeLabel">Dark</span>
-  </button>
-
   <nav class="site-nav" aria-label="Main navigation">
-    <a class="nav-logo" href="index.html" aria-label="Home">
+    <a class="nav-logo" href="../index.html" aria-label="Home">
       <svg width="48" height="20" viewBox="0 0 48 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <polyline points="0,15 6,10 10,13 15,5 20,8 24,2 29,5 33,1 38,4 42,0 48,2"
           stroke="var(--accent)" stroke-width="1.8"
@@ -212,14 +215,22 @@
       </svg>
       <span class="nav-logo-name">Almir Lima Jr.</span>
     </a>
-    <a class="nav-link" href="index.html">Home</a>
-    <a class="nav-link" href="cv.html">CV</a>
-    <a class="nav-link active" href="research.html">Research</a>
+    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="../cv.html">CV</a>
+    <a class="nav-link active" href="../research.html">Research</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
   </nav>
 
   <div class="page">
 
-    <a class="back-link" href="research.html">← Back to Research</a>
+    <a class="back-link" href="../research.html">← Back to Research</a>
 
     <header class="post-header">
       <p class="post-eyebrow">Working Paper</p>
@@ -244,12 +255,12 @@
 
       <div class="pdf-wrap">
         <iframe
-          src="assets/files/202008_English.pdf"
+          src="../assets/files/202008_English.pdf"
           title="Under pressure — full paper PDF"
         ></iframe>
       </div>
 
-      <a class="download-link" href="assets/files/202008_English.pdf" target="_blank" rel="noopener">
+      <a class="download-link" href="../assets/files/202008_English.pdf" target="_blank" rel="noopener">
         📥 Download the paper in English (PDF)
       </a>
     </article>

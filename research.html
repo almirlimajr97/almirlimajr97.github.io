@@ -53,6 +53,14 @@
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
 
+    @media (max-width: 560px) {
+      .theme-toggle {
+        position: static;
+        margin-left: auto;
+        box-shadow: none;
+      }
+    }
+
     /* ── Nav ── */
     .site-nav {
       max-width: 680px; margin: 0 auto; width: 100%;
@@ -182,17 +190,12 @@
     }
 
     @media (max-width: 520px) {
-      .theme-toggle { top: 0.8rem; right: 0.8rem; }
+      .theme-toggle { top: 0.8rem; right: 0.8rem; max-width: calc(100% - 1rem); }
       .blog-card-header { flex-direction: column; gap: 0.2rem; }
     }
   </style>
 </head>
 <body>
-
-  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-    <span class="icon" id="themeIcon">☽</span>
-    <span id="themeLabel">Dark</span>
-  </button>
 
   <nav class="site-nav" aria-label="Navegação principal">
     <a class="nav-logo" href="index.html" aria-label="Home">
@@ -206,6 +209,14 @@
     <a class="nav-link" href="index.html">Home</a>
     <a class="nav-link" href="cv.html">CV</a>
     <a class="nav-link active" href="research.html">Research</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon" id="themeIcon">☽</span>
+      <span id="themeLabel">Dark</span>
+    </button>
   </nav>
 
   <div class="page">
