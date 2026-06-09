@@ -47,16 +47,32 @@
 
     /* ── Theme toggle ── */
     .theme-toggle {
-      position: fixed; top: 1.4rem; right: 1.4rem; z-index: 200;
       background: var(--bg-card); border: 1px solid var(--border);
       border-radius: 20px; padding: 0.35rem 0.75rem;
       cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
       font-size: 0.76rem; font-family: 'Inter', sans-serif; font-weight: 500;
       color: var(--muted); transition: background 0.3s, border-color 0.3s, color 0.2s;
       box-shadow: var(--shadow);
+      position: fixed; top: 1.4rem; right: 1.4rem; z-index: 200;
     }
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
+
+    @media (max-width: 560px) {
+      .theme-toggle {
+        position: static;
+        box-shadow: none;
+        margin-left: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .theme-toggle {
+        position: static;
+        box-shadow: none;
+        margin-left: auto;
+      }
+    }
 
     /* ── Nav ── */
     .site-nav {

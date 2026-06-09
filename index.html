@@ -46,10 +46,6 @@
 
     /* ── Theme toggle ── */
     .theme-toggle {
-      position: fixed;
-      top: 1.4rem;
-      right: 1.4rem;
-      z-index: 100;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
@@ -64,6 +60,11 @@
       color: var(--muted);
       transition: background 0.3s, border-color 0.3s, color 0.2s;
       box-shadow: var(--shadow);
+      /* desktop: fixo no canto */
+      position: fixed;
+      top: 1.4rem;
+      right: 1.4rem;
+      z-index: 100;
     }
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.9rem; line-height: 1; }
