@@ -49,11 +49,9 @@ jobs:
               if not m.get('title'):
                   continue
               posts.append({
-                  'title':    m.get('title', ''),
-                  'date':     m.get('date', ''),
-                  'abstract': m.get('abstract', ''),
-                  'tags':     [t.strip() for t in m.get('tags', '').split(',') if t.strip()],
-                  'file':     f'posts/{fname}'
+                  'title': m.get('title', ''),
+                  'date':  m.get('date', ''),
+                  'file':  f'posts/{fname}'
               })
 
           with open(os.path.join(posts_dir, 'posts.json'), 'w', encoding='utf-8') as f:
