@@ -189,9 +189,8 @@
         <p class="hero-bio">Economist • Data Scientist</p>
       </div>
       <div class="hero-photo-wrap">
-        <img class="hero-photo" src="/headshot.jpeg" alt="Almir Lima Jr."
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="hero-photo-placeholder" style="display:none;">👤</div>
+        <img class="hero-photo" id="headshot" src="/headshot.jpeg" alt="Almir Lima Jr." />
+        <div class="hero-photo-placeholder" id="headshotFallback" style="display:none;">👤</div>
       </div>
     </header>
 
@@ -250,6 +249,20 @@
     toggle.addEventListener('click', () => {
       applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
+
+    // Headshot: força reload com cache-bust se falhar
+    const img = document.getElementById('headshot');
+    const fallback = document.getElementById('headshotFallback');
+    let retries = 0;
+    img.onerror = function() {
+      if (retries < 3) {
+        retries++;
+        setTimeout(() => { img.src = '/headshot.jpeg?r=' + retries; }, 800 * retries);
+      } else {
+        img.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    };
   </script>
 </body>
 </html>
