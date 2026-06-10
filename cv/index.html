@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research — Almir Lima Jr.</title>
+  <title>CV — Almir Lima Jr.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -32,13 +32,13 @@
       --shadow:   0 1px 6px rgba(0,0,0,0.3);
       --prose-bg: #16162A;
     }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html, body { height: 100%; font-size: 16px; }
     body {
       background: var(--bg); color: var(--text);
       font-family: 'Inter', sans-serif; line-height: 1.7;
       padding: 0 1.5rem;
       transition: background 0.3s, color 0.3s;
-      min-height: 100vh; display: flex; flex-direction: column;
+      display: flex; flex-direction: column;
     }
     
     /* ── Nav ── */
@@ -76,44 +76,23 @@
     @media (max-width: 560px) {
       .site-nav { padding: 1rem 0 0; gap: 1rem; }
     }
-    .page { max-width: 680px; margin: 0 auto; width: 100%; flex: 1; padding: 4rem 0 5rem; }
-    .hero { margin-bottom: 2.6rem; }
-    .hero-eyebrow {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem;
-      opacity: 0; animation: fadeUp 0.7s 0.1s ease forwards;
+    .pdf-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 1.4rem 0 0;
+      max-width: 860px; margin: 0 auto; width: 100%;
     }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.9rem, 5vw, 2.8rem);
-      line-height: 1.1; color: var(--text); margin-bottom: 0.8rem;
-      opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
-    }
-    .hero-bio {
-      font-size: 0.95rem; color: var(--muted); line-height: 1.75;
-      opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .blog-list { list-style: none; }
-    .blog-card {
-      padding: 1.2rem 1.5rem; background: var(--bg-card);
+    .pdf-embed {
+      flex: 1; width: 100%;
       border: 1px solid var(--border); border-radius: 6px;
-      margin-bottom: 0.75rem; box-shadow: var(--shadow);
-      display: flex; justify-content: space-between; align-items: baseline;
-      gap: 1rem; flex-wrap: wrap;
-      transition: background 0.3s, border-color 0.3s, transform 0.18s;
-      text-decoration: none;
+      background: var(--bg-card); box-shadow: var(--shadow);
+      transition: border-color 0.3s;
+      height: calc(100vh - 110px);
     }
-    .blog-card:hover { transform: translateY(-2px); }
-    .blog-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem; color: var(--text); line-height: 1.35;
-      flex: 1;
+    .pdf-fallback {
+      padding: 2rem; text-align: center;
+      font-size: 0.9rem; color: var(--muted);
     }
-    .blog-date { font-size: 0.74rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    .pdf-fallback a { color: var(--accent); font-weight: 500; text-decoration: underline; }
     
     .footer {
       max-width: 680px; margin: 0 auto; width: 100%;
@@ -127,12 +106,7 @@
       text-decoration: none; transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--accent); }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; opacity: 1 !important; }
-    }
-    @media (max-width: 520px) {
-      .blog-card { flex-direction: column; gap: 0.2rem; }
-    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
 <body>
@@ -147,21 +121,25 @@
       <span class="nav-logo-name">Almir Lima Jr.</span>
     </a>
     <a class="nav-link" href="/">Home</a>
-    <a class="nav-link" href="cv.html">CV</a>
-    <a class="nav-link active" href="research.html">Research</a>
+    <a class="nav-link" href="cv/">CV</a>
+    <a class="nav-link" href="research/">Research</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <span class="icon" id="themeIcon">☽</span>
       <span id="themeLabel">Dark</span>
     </button>
   </nav>
 
-  <div class="page">
-    <header class="hero">
-      <p class="hero-eyebrow">Research</p>
-      <h1>Papers & Writings</h1>
-      <p class="hero-bio">Academic articles, technical notes, and essays on economics, econometrics, and data science.</p>
-    </header>
-    <ul class="blog-list" id="blogList"></ul>
+  <div class="pdf-wrap">
+    <object class="pdf-embed"
+      data="/assets/files/CV_Almir_Goncalves_de_Lima_Junior-en-202601.pdf"
+      type="application/pdf">
+      <div class="pdf-fallback">
+        <p>Your browser doesn't support embedded PDFs.</p>
+        <p style="margin-top:0.5rem;">
+          <a href="/assets/files/CV_Almir_Goncalves_de_Lima_Junior-en-202601.pdf" target="_blank" rel="noopener">Download CV ↗</a>
+        </p>
+      </div>
+    </object>
   </div>
 
   <footer class="footer">
@@ -190,34 +168,6 @@
     toggle.addEventListener('click', () => {
       applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
-  </script>
-  <script>
-    async function loadPosts() {
-      const list = document.getElementById('blogList');
-      try {
-        const res = await fetch('posts/posts.json');
-        if (!res.ok) throw new Error('not found');
-        const posts = await res.json();
-        const monthOrder = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-        posts.sort((a, b) => {
-          const parse = d => {
-            const [m, y] = d.trim().split(' ');
-            return parseInt(y) * 12 + (monthOrder[m.toLowerCase().slice(0,3)] ?? 0);
-          };
-          return parse(b.date) - parse(a.date);
-        });
-        list.innerHTML = posts.map(p => `
-          <li>
-            <a class="blog-card" href="${p.file}">
-              <span class="blog-title">${p.title}</span>
-              <span class="blog-date">${p.date}</span>
-            </a>
-          </li>`).join('');
-      } catch(e) {
-        list.innerHTML = '<li style="color:var(--muted);font-size:0.9rem;padding:1rem 0;">No posts found.</li>';
-      }
-    }
-    loadPosts();
   </script>
 </body>
 </html>

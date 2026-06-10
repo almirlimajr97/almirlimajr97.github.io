@@ -83,9 +83,9 @@
       font-family: 'DM Serif Display', serif;
       font-size: clamp(2.2rem, 5.5vw, 3.2rem);
       line-height: 1.1; letter-spacing: -0.01em;
-      color: var(--text); margin-bottom: 1rem;
+      color: var(--text); margin-bottom: 0.6rem;
     }
-    .hero-bio { font-size: 1rem; color: var(--muted); line-height: 1.78; max-width: 460px; }
+    .hero-bio { font-size: 0.95rem; color: var(--muted); line-height: 1.78; }
     .hero-photo-wrap { opacity: 0; animation: fadeUp 0.7s 0.25s ease forwards; flex-shrink: 0; }
     .hero-photo {
       width: 112px; height: 112px; border-radius: 50%;
@@ -173,8 +173,8 @@
       
     </a>
     <a class="nav-link active" href="/">Home</a>
-    <a class="nav-link" href="cv.html">CV</a>
-    <a class="nav-link" href="research.html">Research</a>
+    <a class="nav-link" href="cv/">CV</a>
+    <a class="nav-link" href="research/">Research</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <span class="icon" id="themeIcon">☽</span>
       <span id="themeLabel">Dark</span>
@@ -188,7 +188,7 @@
         <p class="hero-bio">Economist • Data Scientist</p>
       </div>
       <div class="hero-photo-wrap">
-        <img class="hero-photo" src="headshot.jpeg" alt="Almir Lima Jr."
+        <img class="hero-photo" src="/headshot.jpeg" alt="Almir Lima Jr."
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="hero-photo-placeholder" style="display:none;">👤</div>
       </div>
@@ -250,6 +250,5 @@
       applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
   </script>
-
 </body>
 </html>
