@@ -81,13 +81,22 @@
     .hero-eyebrow {
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem;
+      opacity: 0; animation: fadeUp 0.7s 0.1s ease forwards;
     }
     .hero h1 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.9rem, 5vw, 2.8rem);
       line-height: 1.1; color: var(--text); margin-bottom: 0.8rem;
+      opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
     }
-    .hero-bio { font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
+    .hero-bio {
+      font-size: 0.95rem; color: var(--muted); line-height: 1.75;
+      opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
     .blog-list { list-style: none; }
     .blog-card {
       padding: 1.2rem 1.5rem; background: var(--bg-card);
