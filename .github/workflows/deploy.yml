@@ -3,6 +3,10 @@ name: Deploy static site
 on:
   push:
     branches: ["main", "master"]
+  workflow_run:
+    workflows: ["Update posts.json"]
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -17,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
