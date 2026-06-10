@@ -1,0 +1,71 @@
+name: Update posts.json
+
+on:
+  push:
+    paths:
+      - 'posts/**.html'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate posts.json from HTML meta tags
+        run: |
+          python3 - << 'PYEOF'
+          import os, json
+          from html.parser import HTMLParser
+
+          class MetaParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.meta = {}
+                  self.done = False
+              def handle_starttag(self, tag, attrs):
+                  if self.done: return
+                  if tag == 'body':
+                      self.done = True
+                  if tag == 'meta':
+                      d = dict(attrs)
+                      name = d.get('name', '')
+                      if name.startswith('post-'):
+                          self.meta[name[5:]] = d.get('content', '')
+
+          posts = []
+          posts_dir = 'posts'
+          for fname in sorted(os.listdir(posts_dir), reverse=True):
+              if not fname.endswith('.html'):
+                  continue
+              path = os.path.join(posts_dir, fname)
+              with open(path, encoding='utf-8') as f:
+                  content = f.read()
+              p = MetaParser()
+              p.feed(content)
+              m = p.meta
+              if not m.get('title'):
+                  continue
+              posts.append({
+                  'title':    m.get('title', ''),
+                  'date':     m.get('date', ''),
+                  'abstract': m.get('abstract', ''),
+                  'tags':     [t.strip() for t in m.get('tags', '').split(',') if t.strip()],
+                  'file':     f'posts/{fname}'
+              })
+
+          with open(os.path.join(posts_dir, 'posts.json'), 'w', encoding='utf-8') as f:
+              json.dump(posts, f, indent=2, ensure_ascii=False)
+
+          print(f'Generated posts.json with {len(posts)} post(s)')
+          PYEOF
+
+      - name: Commit updated posts.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts/posts.json
+          git diff --cached --quiet || git commit -m "Auto-update posts.json"
+          git push

@@ -88,15 +88,6 @@
       line-height: 1.1; color: var(--text); margin-bottom: 0.8rem;
     }
     .hero-bio { font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
-    .blog-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
-    .filter-btn {
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em;
-      text-transform: uppercase; color: var(--muted);
-      background: none; border: 1px solid var(--border); border-radius: 3px;
-      padding: 0.25rem 0.65rem; cursor: pointer; font-family: 'Inter', sans-serif;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .filter-btn:hover, .filter-btn.active { color: var(--accent); border-color: var(--accent); }
     .blog-list { list-style: none; }
     .blog-card {
       padding: 1.5rem; background: var(--bg-card);
@@ -115,16 +106,8 @@
     }
     .blog-date { font-size: 0.74rem; color: var(--muted); white-space: nowrap; padding-top: 3px; }
     .blog-abstract { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.9rem; }
-    .blog-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-    .blog-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-    .blog-tag {
-      font-size: 0.7rem; font-weight: 500; color: var(--accent);
-      border: 1px solid var(--accent); border-radius: 2px;
-      padding: 0.1rem 0.4rem; opacity: 0.75;
-    }
     .blog-read-link { font-size: 0.8rem; font-weight: 500; color: var(--accent); text-decoration: none; }
     .blog-read-link:hover { text-decoration: underline; }
-    .blog-card[data-hidden="true"] { display: none; }
     
     .footer {
       max-width: 680px; margin: 0 auto; width: 100%;
@@ -172,18 +155,7 @@
       <h1>Papers & Writings</h1>
       <p class="hero-bio">Academic articles, technical notes, and essays on economics, econometrics, and data science.</p>
     </header>
-
-    <div class="blog-filter" id="blogFilter">
-      <button class="filter-btn active" data-tag="all">All</button>
-      <button class="filter-btn" data-tag="econometrics">Econometrics</button>
-      <button class="filter-btn" data-tag="machine-learning">Machine Learning</button>
-      <button class="filter-btn" data-tag="economic-policy">Economic Policy</button>
-      <button class="filter-btn" data-tag="data">Data</button>
-    </div>
-
-    <ul class="blog-list" id="blogList">
-      <!-- loaded from posts/posts.json -->
-    </ul>
+    <ul class="blog-list" id="blogList"></ul>
   </div>
 
   <footer class="footer">
@@ -221,39 +193,19 @@
         if (!res.ok) throw new Error('not found');
         const posts = await res.json();
         list.innerHTML = posts.map(p => `
-          <li class="blog-card" data-tags="${p.tags.join(',')}">
+          <li class="blog-card">
             <div class="blog-card-header">
               <h2 class="blog-title">${p.title}</h2>
               <span class="blog-date">${p.date}</span>
             </div>
             <p class="blog-abstract">${p.abstract}</p>
-            <div class="blog-footer">
-              <div class="blog-tags">
-                ${p.tags.map(t => `<span class="blog-tag">${t.replace('-',' ')}</span>`).join('')}
-              </div>
-              <a class="blog-read-link" href="${p.file}">Read paper ↗</a>
-            </div>
+            <a class="blog-read-link" href="${p.file}">Read paper ↗</a>
           </li>`).join('');
-        bindFilter();
       } catch(e) {
         list.innerHTML = '<li style="color:var(--muted);font-size:0.9rem;padding:1rem 0;">No posts found.</li>';
       }
     }
-    function bindFilter() {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const tag = btn.dataset.tag;
-          document.querySelectorAll('.blog-card').forEach(card => {
-            const tags = card.dataset.tags || '';
-            card.dataset.hidden = (tag !== 'all' && !tags.includes(tag)) ? 'true' : 'false';
-          });
-        });
-      });
-    }
     loadPosts();
   </script>
-
 </body>
 </html>
