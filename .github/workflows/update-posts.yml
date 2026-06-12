@@ -1,4 +1,4 @@
-name: Update posts.json
+name: Update posts.json and sitemap
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Generate posts.json from HTML meta tags
+      - name: Generate posts.json and sitemap.xml
         run: |
           python3 - << 'PYEOF'
           import os, json
@@ -54,16 +54,41 @@ jobs:
                   'file':  f'posts/{fname}'
               })
 
+          # posts.json
           with open(os.path.join(posts_dir, 'posts.json'), 'w', encoding='utf-8') as f:
               json.dump(posts, f, indent=2, ensure_ascii=False)
-
           print(f'Generated posts.json with {len(posts)} post(s)')
+
+          # sitemap.xml
+          base = 'https://almirlimajr97.github.io'
+          static_urls = [
+              (f'{base}/', '1.0', 'monthly'),
+              (f'{base}/cv/', '0.8', 'monthly'),
+              (f'{base}/research/', '0.8', 'monthly'),
+          ]
+          post_urls = [
+              (f"{base}/{p['file']}", '0.6', 'yearly') for p in posts
+          ]
+
+          xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for loc, priority, changefreq in static_urls + post_urls:
+              xml.append('  <url>')
+              xml.append(f'    <loc>{loc}</loc>')
+              xml.append(f'    <changefreq>{changefreq}</changefreq>')
+              xml.append(f'    <priority>{priority}</priority>')
+              xml.append('  </url>')
+          xml.append('</urlset>')
+
+          with open('sitemap.xml', 'w', encoding='utf-8') as f:
+              f.write('\n'.join(xml) + '\n')
+          print(f'Generated sitemap.xml with {len(static_urls) + len(post_urls)} url(s)')
           PYEOF
 
-      - name: Commit updated posts.json
+      - name: Commit updated files
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add posts/posts.json
-          git diff --cached --quiet || git commit -m "Auto-update posts.json"
+          git add posts/posts.json sitemap.xml
+          git diff --cached --quiet || git commit -m "Auto-update posts.json and sitemap.xml"
           git push
