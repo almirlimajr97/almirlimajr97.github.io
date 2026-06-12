@@ -263,6 +263,17 @@
         fallback.style.display = 'flex';
       }
     };
+
+    // Safari bfcache: ao restaurar a página de uma navegação por aba,
+    // garante que a imagem é re-verificada/recarregada
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted || (img.complete && img.naturalWidth === 0)) {
+        img.style.display = '';
+        fallback.style.display = 'none';
+        retries = 0;
+        img.src = '/headshot.jpeg?v=' + Date.now();
+      }
+    });
   </script>
 </body>
 </html>
