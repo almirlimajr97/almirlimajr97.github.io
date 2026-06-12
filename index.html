@@ -128,8 +128,15 @@
       font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--muted);
     }
-    .now-items { display: flex; flex-direction: column; gap: 0.45rem; }
-    .now-item { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+    .now-items { display: flex; flex-direction: column; gap: 0.5rem; }
+    .now-item {
+      display: flex; gap: 0.8rem; align-items: flex-start;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.5;
+    }
+    .now-item .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 0.5rem; opacity: 0.6;
+    }
     .now-item strong { color: var(--text); font-weight: 500; }
     
     .footer {
@@ -201,7 +208,6 @@
       <ul class="about-list">
         <li class="about-item"><span class="dot"></span><span>I live in <strong>São Paulo, Brazil</strong>.</span></li>
         <li class="about-item"><span class="dot"></span><span>I am an economist by trade, having earned a bachelor's degree from <strong>Universidade Federal do ABC (UFABC)</strong> in 2022.</span></li>
-        <li class="about-item"><span class="dot"></span><span>Since September 2019, I have worked at <strong>Itaú Unibanco</strong>, currently as a data scientist for its Credit Policy team.</span></li>
         <li class="about-item"><span class="dot"></span><span>I am big into using data to help understand real-life problems. College and work got me hooked on data modelling, and now I am diving into Data Science.</span></li>
         <li class="about-item"><span class="dot"></span><span>I am a huge fan of sports, especially baseball (big Mets and Palmeiras fan here!).</span></li>
       </ul>
@@ -210,14 +216,14 @@
     <hr class="divider" />
 
     <section>
-      <p class="section-label">Now</p>
       <div class="now-card">
         <div class="now-card-header">
           <span class="now-dot"></span>
           <span class="now-label">Currently</span>
         </div>
         <div class="now-items">
-          <p class="now-item">I am currently pursuing a <strong>postgraduate specialization in Data Sciences</strong> from Universidade de São Paulo (USP).</p>
+          <p class="now-item"><span class="dot"></span><span>Since September 2019, I have worked at <strong>Itaú Unibanco</strong>, currently as a data scientist for its Credit Policy team.</span></p>
+          <p class="now-item"><span class="dot"></span><span>I am currently pursuing a <strong>postgraduate specialization in Data Sciences</strong> from Universidade de São Paulo (USP).</span></p>
         </div>
       </div>
     </section>
