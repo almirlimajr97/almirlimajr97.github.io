@@ -213,6 +213,12 @@
       themeLabel.textContent = t === 'dark' ? 'Light' : 'Dark';
       localStorage.setItem('theme', t);
     }
+
+    // Define o <title> automaticamente a partir da meta post-title
+    const postTitleMeta = document.querySelector('meta[name="post-title"]');
+    if (postTitleMeta) {
+      document.title = postTitleMeta.content + ' — Almir Lima Jr.';
+    }
     applyTheme(saved);
     toggle.addEventListener('click', () => {
       applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
