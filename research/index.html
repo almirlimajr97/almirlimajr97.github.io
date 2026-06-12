@@ -95,6 +95,22 @@
       opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
     }
     .blog-list { list-style: none; }
+    .pagination {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0.5rem; margin-top: 1.5rem;
+    }
+    .page-btn {
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.35rem 0.7rem; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      min-width: 2rem; text-align: center;
+    }
+    .page-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+    .page-btn.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
     .blog-card {
       padding: 1.2rem 1.5rem; background: var(--bg-card);
       border: 1px solid var(--border); border-radius: 6px;
@@ -159,9 +175,9 @@
     <header class="hero">
       <p class="hero-eyebrow">Research</p>
       <h1>Papers & Writings</h1>
-      <p class="hero-bio">Academic articles, technical notes, and essays on economics, econometrics, and data science.</p>
     </header>
     <ul class="blog-list" id="blogList"></ul>
+    <div class="pagination" id="pagination"></div>
   </div>
 
   <footer class="footer">
@@ -192,6 +208,10 @@
     });
   </script>
   <script>
+    const PAGE_SIZE = 4;
+    let allPosts = [];
+    let currentPage = 1;
+
     async function loadPosts() {
       const list = document.getElementById('blogList');
       try {
@@ -206,17 +226,56 @@
           };
           return parse(b.date) - parse(a.date);
         });
-        list.innerHTML = posts.map(p => `
+        allPosts = posts;
+        renderPage(1);
+      } catch(e) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.9rem;padding:1rem 0;">No posts found.</li>';
+      }
+    }
+
+    function renderPage(page) {
+      const list = document.getElementById('blogList');
+      const pagination = document.getElementById('pagination');
+      const totalPages = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
+      currentPage = Math.min(Math.max(1, page), totalPages);
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pagePosts = allPosts.slice(start, start + PAGE_SIZE);
+
+      if (pagePosts.length === 0) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.9rem;padding:1rem 0;">No posts found.</li>';
+      } else {
+        list.innerHTML = pagePosts.map(p => `
           <li>
             <a class="blog-card" href="/${p.file}">
               <span class="blog-title">${p.title}</span>
               <span class="blog-date">${p.date}</span>
             </a>
           </li>`).join('');
-      } catch(e) {
-        list.innerHTML = '<li style="color:var(--muted);font-size:0.9rem;padding:1rem 0;">No posts found.</li>';
       }
+
+      // Pagination controls
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+
+      let html = `<button class="page-btn" id="prevBtn" ${currentPage === 1 ? 'disabled' : ''}>←</button>`;
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+      html += `<button class="page-btn" id="nextBtn" ${currentPage === totalPages ? 'disabled' : ''}>→</button>`;
+      pagination.innerHTML = html;
+
+      pagination.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => renderPage(parseInt(btn.dataset.page)));
+      });
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      if (prevBtn) prevBtn.addEventListener('click', () => renderPage(currentPage - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => renderPage(currentPage + 1));
     }
+
     loadPosts();
   </script>
 </body>
