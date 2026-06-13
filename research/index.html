@@ -218,14 +218,6 @@
         const res = await fetch('/posts/posts.json?v=' + Date.now());
         if (!res.ok) throw new Error('not found');
         const posts = await res.json();
-        const monthOrder = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-        posts.sort((a, b) => {
-          const parse = d => {
-            const [m, y] = d.trim().split(' ');
-            return parseInt(y) * 12 + (monthOrder[m.toLowerCase().slice(0,3)] ?? 0);
-          };
-          return parse(b.date) - parse(a.date);
-        });
         allPosts = posts;
         renderPage(1);
       } catch(e) {
