@@ -1,5 +1,10 @@
 [
   {
+    "title": "Teste novo rodapé",
+    "date": "Apr 2026",
+    "file": "posts/teste-novo-rodap.html"
+  },
+  {
     "title": "Novo teste",
     "date": "Jan 2026",
     "file": "posts/novo-teste.html"
