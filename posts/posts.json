@@ -1,37 +1,7 @@
 [
   {
-    "title": "Lorem Ipsum II: Another Test Post",
-    "date": "May 2026",
-    "file": "posts/lorem-ipsum-2.html"
-  },
-  {
-    "title": "Lorem Ipsum III: Yet Another Test Post",
-    "date": "Apr 2026",
-    "file": "posts/lorem-ipsum-3.html"
-  },
-  {
-    "title": "Lorem Ipsum IV: The Final Test Post",
-    "date": "Mar 2026",
-    "file": "posts/lorem-ipsum-4.html"
-  },
-  {
-    "title": "Lorem Ipsum V: One More Test Post",
-    "date": "Feb 2026",
-    "file": "posts/lorem-ipsum-5.html"
-  },
-  {
     "title": "Under pressure: External influences and career concerns for refereeing activities in Brazilian football",
     "date": "Aug 2020",
     "file": "posts/ufabc-ic-refereeing-socialpressure.html"
-  },
-  {
-    "title": "Lorem Ipsum VI: January 2020 Test Post",
-    "date": "Jan 2020",
-    "file": "posts/lorem-ipsum-6.html"
-  },
-  {
-    "title": "Lorem Ipsum VII: Another January 2020 Test Post",
-    "date": "Jan 2020",
-    "file": "posts/lorem-ipsum-7.html"
   }
 ]
