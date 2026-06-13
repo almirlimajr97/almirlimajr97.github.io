@@ -23,7 +23,7 @@
       --shadow: 0 1px 6px rgba(0,0,0,0.3); --prose-bg: #16162A;
     }
     html { font-size: 16px; scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding: 0 1.5rem; transition: background 0.3s, color 0.3s; min-height: 100vh; display: flex; flex-direction: column; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding: 0 1.5rem; transition: background 0.3s, color 0.3s; }
     .site-nav { max-width: 680px; margin: 0 auto; width: 100%; padding: 1.6rem 0 0; display: flex; gap: 1.4rem; align-items: center; }
     .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
     .nav-logo-name { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--text); letter-spacing: -0.01em; transition: color 0.2s; }
@@ -34,7 +34,7 @@
     .theme-toggle:hover { color: var(--text); }
     .theme-toggle .icon { font-size: 0.85rem; line-height: 1; }
     @media (max-width: 560px) { .theme-toggle { position: static; box-shadow: none; margin-left: auto; } .site-nav { padding: 1rem 0 0; gap: 1rem; } }
-    .page { max-width: 680px; margin: 0 auto; width: 100%; flex: none; padding: 3rem 0 2.4rem; }
+    .page { max-width: 680px; margin: 0 auto; width: 100%; flex: 1; padding: 3rem 0 2.4rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 500; color: var(--muted); text-decoration: none; margin-bottom: 2.4rem; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
     .post-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.2; color: var(--text); margin-bottom: 0.5rem; opacity: 0; animation: fadeUp 0.7s 0.1s ease forwards; }
