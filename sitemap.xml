@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://almirlimajr97.github.io/posts/teste.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://almirlimajr97.github.io/posts/ufabc-ic-refereeing-socialpressure.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
