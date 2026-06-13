@@ -28,5 +28,10 @@
     "title": "Lorem Ipsum VI: January 2020 Test Post",
     "date": "Jan 2020",
     "file": "posts/lorem-ipsum-6.html"
+  },
+  {
+    "title": "Lorem Ipsum VII: Another January 2020 Test Post",
+    "date": "Jan 2020",
+    "file": "posts/lorem-ipsum-7.html"
   }
 ]
