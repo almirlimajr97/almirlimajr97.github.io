@@ -5,6 +5,11 @@
     "file": "posts/teste.html"
   },
   {
+    "title": "Testando Teste",
+    "date": "Apr 2026",
+    "file": "posts/testando-teste.html"
+  },
+  {
     "title": "Teste novo",
     "date": "Feb 2026",
     "file": "posts/teste-novo.html"
