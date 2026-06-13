@@ -82,7 +82,7 @@ jobs:
               })
 
           # Ordena: 1º por data do post (decrescente), 2º por timestamp do primeiro commit (decrescente)
-          posts.sort(key=lambda p: (p['_date_num'], p['_commit_ts']), reverse=True)
+          posts.sort(key=lambda p: (-p["_date_num"], p["_commit_ts"]))
 
           # Remove campos auxiliares
           for p in posts:
