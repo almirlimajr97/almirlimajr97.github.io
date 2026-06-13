@@ -20,10 +20,7 @@ almirlimajr97.github.io/
 ├── posts/
 │   ├── posts.json          # Auto-generated index (do not edit manually)
 │   └── *.html              # Individual posts
-├── assets/
-│   └── files/              # PDFs and other files
-├── favicon.svg
-├── headshot.jpeg
+├── files/                  # PDFs and other static files
 ├── sitemap.xml             # Auto-generated (do not edit manually)
 ├── robots.txt
 ├── post-template.html      # Starting point for new posts
