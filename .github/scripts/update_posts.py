@@ -1,0 +1,89 @@
+import os, json, subprocess
+from html.parser import HTMLParser
+
+class MetaParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.meta = {}
+        self.done = False
+    def handle_starttag(self, tag, attrs):
+        if self.done: return
+        if tag == 'body':
+            self.done = True
+        if tag == 'meta':
+            d = dict(attrs)
+            name = d.get('name', '')
+            if name.startswith('post-'):
+                self.meta[name[5:]] = d.get('content', '')
+
+def get_first_commit_timestamp(filepath):
+    try:
+        result = subprocess.run(
+            ['git', 'log', '--follow', '--format=%at', '--reverse', filepath],
+            capture_output=True, text=True
+        )
+        lines = result.stdout.strip().split('\n')
+        return int(lines[0]) if lines and lines[0] else 0
+    except:
+        return 0
+
+MONTH_ORDER = {
+    'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
+    'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12
+}
+
+def parse_date(d):
+    parts = d.strip().split()
+    if len(parts) == 2:
+        m, y = parts
+        return int(y) * 100 + MONTH_ORDER.get(m.lower()[:3], 0)
+    return 0
+
+posts = []
+posts_dir = 'posts'
+for fname in os.listdir(posts_dir):
+    if not fname.endswith('.html'):
+        continue
+    path = os.path.join(posts_dir, fname)
+    with open(path, encoding='utf-8') as f:
+        content = f.read()
+    p = MetaParser()
+    p.feed(content)
+    m = p.meta
+    if not m.get('title'):
+        continue
+    posts.append({
+        'title':      m.get('title', ''),
+        'date':       m.get('date', ''),
+        'file':       f'posts/{fname}',
+        '_date_num':  parse_date(m.get('date', '')),
+        '_commit_ts': get_first_commit_timestamp(path),
+    })
+
+posts.sort(key=lambda p: (p['_date_num'], -p['_commit_ts']), reverse=True)
+
+for p in posts:
+    del p['_date_num']
+    del p['_commit_ts']
+
+with open(os.path.join(posts_dir, 'posts.json'), 'w', encoding='utf-8') as f:
+    json.dump(posts, f, indent=2, ensure_ascii=False)
+print(f'Generated posts.json with {len(posts)} post(s)')
+
+base = 'https://almirlimajr97.github.io'
+static_urls = [
+    (f'{base}/', '1.0', 'monthly'),
+    (f'{base}/cv/', '0.8', 'monthly'),
+    (f'{base}/research/', '0.8', 'monthly'),
+]
+post_urls = [(f"{base}/{p['file']}", '0.6', 'yearly') for p in posts]
+
+xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+for loc, priority, changefreq in static_urls + post_urls:
+    xml.append(f'  <url>\n    <loc>{loc}</loc>\n    <changefreq>{changefreq}</changefreq>\n    <priority>{priority}</priority>\n  </url>')
+xml.append('</urlset>')
+
+with open('sitemap.xml', 'w', encoding='utf-8') as f:
+    f.write('\n'.join(xml) + '\n')
+print(f'Generated sitemap.xml with {len(static_urls) + len(post_urls)} url(s)')
