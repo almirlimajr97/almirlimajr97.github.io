@@ -264,7 +264,7 @@
     img.onerror = function() {
       if (retries < 3) {
         retries++;
-        setTimeout(() => { img.src = '/headshot.jpeg?r=' + retries; }, 800 * retries);
+        setTimeout(() => { img.src = '/files/headshot.jpeg?r=' + retries; }, 800 * retries);
       } else {
         img.style.display = 'none';
         fallback.style.display = 'flex';
@@ -278,7 +278,7 @@
         img.style.display = '';
         fallback.style.display = 'none';
         retries = 0;
-        img.src = '/headshot.jpeg?v=' + Date.now();
+        img.src = '/files/headshot.jpeg?v=' + Date.now();
       }
     });
   </script>
