@@ -260,37 +260,25 @@
     // Headshot: força reload com cache-bust se falhar
     const img = document.getElementById('headshot');
     const fallback = document.getElementById('headshotFallback');
-    let retries = 0;
 
     function reloadHeadshot() {
-      img.style.display = '';
-      fallback.style.display = 'none';
-      retries = 0;
-      img.src = '/files/headshot.jpeg?v=' + Date.now();
-    }
-
-    img.onerror = function() {
-      if (retries < 3) {
-        retries++;
-        setTimeout(() => { img.src = '/files/headshot.jpeg?r=' + retries; }, 800 * retries);
-      } else {
+      const newImg = new Image();
+      newImg.onload = () => {
+        img.src = newImg.src;
+        img.style.display = '';
+        fallback.style.display = 'none';
+      };
+      newImg.onerror = () => {
         img.style.display = 'none';
         fallback.style.display = 'flex';
-      }
-    };
+      };
+      newImg.src = '/files/headshot.jpeg?v=' + Date.now();
+    }
 
-    // Safari bfcache: dispara ao restaurar aba
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted || (img.complete && img.naturalWidth === 0)) {
-        reloadHeadshot();
-      }
-    });
-
-    // Captura adicionalmente quando a aba volta ao foco
+    // Carrega sempre ao exibir a página (bfcache, troca de aba, etc.)
+    window.addEventListener('pageshow', reloadHeadshot);
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && img.naturalWidth === 0) {
-        reloadHeadshot();
-      }
+      if (document.visibilityState === 'visible') reloadHeadshot();
     });
   </script>
 </body>
