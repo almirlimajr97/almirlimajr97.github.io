@@ -261,6 +261,14 @@
     const img = document.getElementById('headshot');
     const fallback = document.getElementById('headshotFallback');
     let retries = 0;
+
+    function reloadHeadshot() {
+      img.style.display = '';
+      fallback.style.display = 'none';
+      retries = 0;
+      img.src = '/files/headshot.jpeg?v=' + Date.now();
+    }
+
     img.onerror = function() {
       if (retries < 3) {
         retries++;
@@ -271,14 +279,17 @@
       }
     };
 
-    // Safari bfcache: ao restaurar a página de uma navegação por aba,
-    // garante que a imagem é re-verificada/recarregada
+    // Safari bfcache: dispara ao restaurar aba
     window.addEventListener('pageshow', (event) => {
       if (event.persisted || (img.complete && img.naturalWidth === 0)) {
-        img.style.display = '';
-        fallback.style.display = 'none';
-        retries = 0;
-        img.src = '/files/headshot.jpeg?v=' + Date.now();
+        reloadHeadshot();
+      }
+    });
+
+    // Captura adicionalmente quando a aba volta ao foco
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && img.naturalWidth === 0) {
+        reloadHeadshot();
       }
     });
   </script>
